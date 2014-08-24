@@ -1,0 +1,21 @@
+
+- name: create temporary config
+  command: mktemp -d
+  register: temp_dir
+
+- name: Copy solarized dark settings file
+  copy: src=Smyck.terminal dest={{ temp_dir.stdout }}/Smyck.terminal
+
+- name: Set default terminal to Smyck
+  command: open {{ temp_dir.stdout }}/Smyck.terminal
+  ignore_errors: yes
+
+- name: Terminal settings
+  command: 'defaults write {{ user_lib_prefs }}/com.apple.Terminal {{ item }}'
+  with_items:
+    - '"Default Window Settings" -string "Smyck"'
+    - '"Startup Window Settings" -string "Smyck"'
+
+- name: Clean tempdir 
+  command: rm -f "{{ temp_dir.stdout }}/Smyck.terminal" 
+

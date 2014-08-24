@@ -1,0 +1,99 @@
+---
+- hosts: all
+
+  vars:
+    user: dann 
+    home_dir: "/Users/{{ user }}"
+    dotfiles_repo_url: https://github.com/dann/dotfiles.git
+    application_dir: "{{ home_dir }}/Applications"
+    caskroom_dir: /opt/homebrew-cask/Caskroom
+    zsh_path: /usr/local/bin/zsh
+    user_lib: "/Users/{{ user }}/Library"
+    user_lib_prefs: "{{ user_lib }}/Preferences"
+
+    homebrew_tap_repos:
+      - caskroom/cask
+      - homebrew/versions
+      - homebrew/binary
+      - caskroom/versions
+      - motemen/ghq
+      - tcr/tcr
+      - homebrew/dupes
+
+    homebrew_cask_packages:
+      - alfred
+      - caffeine
+      - dash
+      - day-o
+      - dropbox
+      - flux
+      - google-chrome
+      - google-drive
+      - growl-fork
+      - firefox
+      - hipchat
+      - karabiner
+      - mou
+      - pandoc
+      - screenflow
+      - vagrant
+      - virtualbox
+      - vlc
+
+    homebrew_packages:
+      - bvi
+      - brew-cask
+      - coreutils
+      - clang-format
+      - gettext
+      - unzip
+      - ghq
+      - git
+      - git-flow
+      - git-now
+      - htop
+      - hub
+      - jsl
+      - jsonpp
+      - jq
+      - lha
+      - libiconv
+      - lv
+      - lynx
+      - maven31
+      - mercurial
+      - multitail
+      - node
+      - neon
+      - ngrep
+      - nkf
+      - nmap
+      - plenv
+      - perl-build
+      - pkg-config
+      - sqlite
+      - subversion
+      - the_silver_searcher
+      - tig
+      - tmux
+      - tree
+      - valgrind
+      - w3m
+      - wget
+      - zsh
+
+    npm_modules:
+      - node-inspector
+      - yo
+      - generator-commander
+      - mocha
+      - hubot
+      - coffee-script
+      - grunt
+
+  tasks:
+      - include: ../common/tasks/homebrew.yml tags=homebrew
+      - include: ../common/tasks/npm.yml tags=npm
+      - include: tasks/dotfiles.yml
+      - include: tasks/terminal.yml
+

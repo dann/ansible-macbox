@@ -1,0 +1,14 @@
+- name: Clean dotfiles
+  command: rm -rf "{{ home_dir }}/.dotfiles"
+
+- name: Clone dotfiles from github 
+  git: repo="{{ dotfiles_repo_url }}"
+       dest="{{ home_dir }}/.dotfiles" 
+
+- name: link dotfiles 
+  shell: ./dotsetup.sh chdir="{{ home_dir }}/.dotfiles/"
+
+
+
+
+
